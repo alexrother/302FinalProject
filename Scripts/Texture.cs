@@ -7,35 +7,42 @@ public class ImageOverlay : MonoBehaviour
     public List<GameObject> targets;
     public List<Sprite> possibleSprites;
 
+    // Scene "allocation"
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    // Scene "deallocation"
     void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // When scene loads
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Pick random sprite
         Sprite chosenSprite = possibleSprites[Random.Range(0, possibleSprites.Count)];
 
+        // For each prefab
         foreach (GameObject obj in targets)
         {
+            // Get obj sprite
             SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
-            if (sr == null) continue;
-
+            // Get rect size
             Vector2 originalSize = sr.bounds.size;
-
+            // Set sprite
             sr.sprite = chosenSprite;
-
+            // Get new sprite size
             Vector2 newSize = sr.bounds.size;
-            if (newSize.x == 0 || newSize.y == 0) continue;
 
+            // Scale new sprite to be size of original
             Vector3 scale = obj.transform.localScale;
             scale.x *= originalSize.x / newSize.x;
             scale.y *= originalSize.y / newSize.y;
+
+            // Set sprite to new scale
             obj.transform.localScale = scale;
         }
     }

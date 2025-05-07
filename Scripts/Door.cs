@@ -10,27 +10,32 @@ public class DoorTrigger : MonoBehaviour
     public bool hasKey = false;
 
     private AudioSource audioSource;
-    private bool playedOnce = false;
 
+    // Script startup
     void Start()
     {
+        // Get audiosource
         audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (!playedOnce && other.gameObject == player)
+        // If player touches door
+        if (other.gameObject == player)
         {
-            playedOnce = true;
             if (hasKey)
             {
+                // Change audioclip to unlocked sound
+                // and play
                 audioSource.clip = doorUnlockSound;
                 audioSource.Play();
+                // Reload the scene
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             else
             {
+                // Change audioclip to locked sound
+                // and play
                 audioSource.clip = doorLockSound;
                 audioSource.Play();
             }
