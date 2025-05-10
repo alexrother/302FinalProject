@@ -1,6 +1,6 @@
 # Unity 2D Procedural Dungeon Crawler
 
-Due to size constraints on Github, I'm unable to upload the entire folder.
+Due to Github's size constraints, I'm unable to upload the entire folder.
 All the sounds, textures, and scripts used are uploaded to Github.
 
 A download link to the entire Unity project is below:
